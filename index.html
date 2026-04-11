@@ -323,6 +323,77 @@
         font-size: 0.92rem;
       }
     }
+    .figure-box {
+  margin: 1.5rem 0;
+  padding: 1.2rem;
+  border-radius: var(--radius);
+  background: #faf8fd;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.figure-flow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.step {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  box-shadow: var(--shadow);
+}
+
+.arrow {
+  font-weight: bold;
+  color: var(--muted);
+}
+
+.figure-caption {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.6rem;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.about-figure {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 0.9rem;
+}
+
+.about-figure img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.about-figure figcaption {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-top: 0.7rem;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+}
   </style>
 </head>
 <body>
@@ -379,16 +450,37 @@
               <span class="label">Location</span>
               <span class="value">Department of Computer Science and Engineering, UCA</span>
             </div>
-            <div class="info-item">
-              <span class="label">Expected Staff/Volunteers</span>
-              <span class="value">3</span>
-            </div>
           </div>
         </aside>
       </div>
     </section>
 
     <section id="about">
+  <div class="container">
+    <h2 class="section-title">About the Camp</h2>
+
+    <div class="about-grid">
+      <div>
+        <p class="section-lead">
+          AI Innovators Lab is a short summer experience that introduces students to the foundations of coding and artificial intelligence in an engaging and age-appropriate environment. The camp combines guided instruction, interactive exercises, and project-based learning so students can explore how computers solve problems and how simple AI systems are built.
+        </p>
+
+        <div class="highlight">
+          <strong>Camp Purpose:</strong> To provide instruction in foundational programming and introductory artificial intelligence concepts for young learners through hands-on activities and guided project work, while encouraging curiosity, creativity, and early interest in computing.
+        </div>
+      </div>
+
+      <figure class="about-figure">
+        <img src="assets/AI innovators at UCA camp.png" alt="Students learning programming and AI in a summer camp environment" />
+        <figcaption>
+          Conceptual: Students explore coding, creativity, teamwork, and introductory AI concepts through hands-on activities.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+    <!-- <section id="about">
       <div class="container">
         <h2 class="section-title">About the Camp</h2>
         <p class="section-lead">
@@ -398,7 +490,21 @@
           <strong>Camp Purpose:</strong> To provide instruction in foundational programming and introductory artificial intelligence concepts for young learners through hands-on activities and guided project work, while encouraging curiosity, creativity, and early interest in computing.
         </div>
       </div>
-    </section>
+      <div class="figure-box">
+  <div class="figure-flow">
+    <div class="step">Learn</div>
+    <div class="arrow">→</div>
+    <div class="step">Practice</div>
+    <div class="arrow">→</div>
+    <div class="step">Build</div>
+    <div class="arrow">→</div>
+    <div class="step">Showcase</div>
+  </div>
+  <p class="figure-caption">
+    Figure: Learning pathway of the AI Innovators Lab summer camp.
+  </p>
+</div>
+    </section> -->
 
     <section id="highlights">
       <div class="container">
@@ -406,61 +512,47 @@
         <p class="section-lead">
           The camp is structured to make technical topics approachable, fun, and meaningful for students with beginner-level experience.
         </p>
-        <div class="cards">
+        <div class="cards" style="grid-template-columns: repeat(2, 1fr);">
           <div class="card">
-            <h3>Learn to Code</h3>
-            <p>Students explore beginner-friendly programming concepts through interactive coding activities and guided examples.</p>
+            <h3>Day 1 — July 6</h3>
+            <p><strong>Theme:</strong> Introduction to Programming</p>
+            <ul>
+              <li>Camp welcome and check-in</li>
+              <li>Overview of computers, coding, and problem solving</li>
+              <li>Beginner programming concepts through guided activities</li>
+              <li>Interactive practice and group discussion</li>
+            </ul>
           </div>
           <div class="card">
-            <h3>Explore AI Concepts</h3>
-            <p>Campers are introduced to the basic ideas behind artificial intelligence, pattern recognition, and data-driven decision making.</p>
+            <h3>Day 2 — July 7</h3>
+            <p><strong>Theme:</strong> Data and Patterns</p>
+            <ul>
+              <li>Introduction to data, examples, and simple patterns</li>
+              <li>How computers use information to make decisions</li>
+              <li>Hands-on learning with beginner-friendly exercises</li>
+              <li>Team-based activities and guided exploration</li>
+            </ul>
           </div>
           <div class="card">
-            <h3>Create a Project</h3>
-            <p>Students apply what they learn in a simple final project that allows them to demonstrate creativity, teamwork, and problem solving.</p>
+            <h3>Day 3 — July 8</h3>
+            <p><strong>Theme:</strong> Beginner AI Project Work</p>
+            <ul>
+              <li>Introduction to a simple AI-based activity or model</li>
+              <li>Team project planning and guided development</li>
+              <li>Practice with coding, testing, and refinement</li>
+              <li>Preparation for final presentation</li>
+            </ul>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="schedule">
-      <div class="container">
-        <h2 class="section-title">Daily Schedule</h2>
-        <p class="section-lead">
-          Below is a sample structure for the four-day camp. The final version may be adjusted based on age group, activity pacing, and classroom needs.
-        </p>
-        <div class="schedule">
-          <table>
-            <thead>
-              <tr>
-                <th>Day</th>
-                <th>Focus</th>
-                <th>Activities</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Day 1</strong><br />July 6</td>
-                <td>Introduction to Programming</td>
-                <td>Camp welcome, coding basics, simple logic activities, and creative exercises introducing how programs work.</td>
-              </tr>
-              <tr>
-                <td><strong>Day 2</strong><br />July 7</td>
-                <td>Data and Patterns</td>
-                <td>Students explore simple data concepts, recognize patterns, and learn how computers use information to make predictions.</td>
-              </tr>
-              <tr>
-                <td><strong>Day 3</strong><br />July 8</td>
-                <td>Beginner AI Project Work</td>
-                <td>Teams work on a guided project, practice problem solving, and begin building a simple beginner-level AI activity or model.</td>
-              </tr>
-              <tr>
-                <td><strong>Day 4</strong><br />July 9</td>
-                <td>Project Showcase</td>
-                <td>Students complete their projects, present their work, and celebrate their learning at the camp showcase.</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="card">
+            <h3>Day 4 — July 9</h3>
+            <p><strong>Theme:</strong> Project Showcase and Celebration</p>
+            <ul>
+              <li>Final project completion and review</li>
+              <li>Student team presentations</li>
+              <li>AI Showcase activity</li>
+              <li>Camp wrap-up and recognition</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -523,8 +615,10 @@
             For questions about the camp, schedule, or participation, please contact the camp organizer.
           </p>
           <p style="margin-bottom:0;">
-            <strong>Organizer:</strong> Jobair Hossain<br />
-            <strong>Department:</strong> Computer Science and Engineering, UCA<br />
+            <strong>Organizer:</strong> Md Jobair Hossain Faruk<br />
+            <strong>Department:</strong> Computer Science and Engineering<br />
+            <strong>University:</strong> University of Central Arkansas<br />
+            <strong>Email:</strong> <a href="mailto:mhossainfaruk@uca.edu">mhossainfaruk@uca.edu</a><br />
             <strong>Website:</strong> <a href="http://jobair-hossain.github.io/AI-Innovators-Lab">jobair-hossain.github.io/AI-Innovators-Lab</a>
           </p>
         </div>
@@ -535,7 +629,7 @@
   <footer>
     <div class="container footer-note">
       <div>© 2026 AI Innovators Lab, University of Central Arkansas</div>
-      <div>Simple. Engaging. Future-focused.</div>
+      <div>Learn to Code. Think with AI. Create the Future..</div>
     </div>
   </footer>
 </body>
