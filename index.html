@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Innovators Lab | UCA Summer Camp</title>
-  <meta name="description" content="AI Innovators Lab is a UCA summer camp introducing students ages 7–12 to programming, AI, and hands-on machine learning projects." />
+  <meta
+    name="description"
+    content="AI Innovators Lab is a UCA summer camp introducing students ages 7–12 to programming, AI, and hands-on learning experiences."
+  />
   <style>
     :root {
       --primary: #4f2d7f;
@@ -152,15 +155,22 @@
       text-decoration: none;
     }
 
-    .hero-card {
+    .hero-card,
+    .card,
+    .highlight,
+    .about-figure {
       background: white;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+    }
+
+    .hero-card {
       padding: 1.5rem;
     }
 
-    .hero-card h3 {
+    .hero-card h3,
+    .card h3 {
       margin-top: 0;
       margin-bottom: 1rem;
       color: var(--primary-dark);
@@ -215,57 +225,17 @@
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
     }
 
     .card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
       padding: 1.3rem;
-      box-shadow: var(--shadow);
-    }
-
-    .card h3 {
-      margin-top: 0;
-      margin-bottom: 0.6rem;
-      color: var(--primary-dark);
-      font-size: 1.05rem;
-    }
-
-    .schedule {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      padding: 1rem;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-      vertical-align: top;
-    }
-
-    th {
-      background: #f8f6fb;
-      color: var(--primary-dark);
-      font-size: 0.95rem;
     }
 
     .highlight {
-      background: linear-gradient(135deg, #f8f5fc 0%, #ffffff 100%);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
       padding: 1.5rem;
-      box-shadow: var(--shadow);
+      background: linear-gradient(135deg, #f8f5fc 0%, #ffffff 100%);
     }
 
     .two-col {
@@ -277,6 +247,31 @@
     ul {
       margin: 0.4rem 0 0;
       padding-left: 1.2rem;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .about-figure {
+      padding: 0.9rem;
+    }
+
+    .about-figure img {
+      width: 100%;
+      display: block;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .about-figure figcaption {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: 0.7rem;
+      text-align: center;
     }
 
     footer {
@@ -296,6 +291,7 @@
 
     @media (max-width: 900px) {
       .hero-grid,
+      .about-grid,
       .cards,
       .two-col {
         grid-template-columns: 1fr;
@@ -313,87 +309,11 @@
         padding-top: 3rem;
       }
 
-      th, td {
-        padding: 0.8rem;
-        font-size: 0.95rem;
-      }
-
       .nav-links {
         gap: 0.8rem;
         font-size: 0.92rem;
       }
     }
-    .figure-box {
-  margin: 1.5rem 0;
-  padding: 1.2rem;
-  border-radius: var(--radius);
-  background: #faf8fd;
-  border: 1px solid var(--border);
-  text-align: center;
-}
-
-.figure-flow {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.step {
-  background: white;
-  border: 1px solid var(--border);
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  font-weight: 600;
-  color: var(--primary-dark);
-  box-shadow: var(--shadow);
-}
-
-.arrow {
-  font-weight: bold;
-  color: var(--muted);
-}
-
-.figure-caption {
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin-top: 0.6rem;
-}
-.about-grid {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 1.5rem;
-  align-items: center;
-}
-
-.about-figure {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 0.9rem;
-}
-
-.about-figure img {
-  width: 100%;
-  display: block;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
-.about-figure figcaption {
-  font-size: 0.88rem;
-  color: var(--muted);
-  margin-top: 0.7rem;
-  text-align: center;
-}
-
-@media (max-width: 900px) {
-  .about-grid {
-    grid-template-columns: 1fr;
-  }
-}
   </style>
 </head>
 <body>
@@ -402,10 +322,10 @@
       <div class="brand">AI Innovators Lab</div>
       <nav class="nav-links" aria-label="Primary">
         <a href="#about">About</a>
-        <a href="#highlights">Highlights</a>
         <a href="#schedule">Schedule</a>
         <a href="#details">Camp Details</a>
         <a href="#contact">Contact</a>
+        <a href="YOUR_GOOGLE_FORM_LINK_HERE" target="_blank" rel="noopener noreferrer">Register</a>
       </nav>
     </div>
   </header>
@@ -421,9 +341,11 @@
             artificial intelligence, and hands-on problem solving through guided activities,
             team collaboration, and creative project development.
           </p>
+
           <div class="button-group">
             <a class="btn btn-primary" href="#details">View Camp Details</a>
             <a class="btn btn-secondary" href="#schedule">See Daily Schedule</a>
+            <a class="btn btn-primary" href="YOUR_GOOGLE_FORM_LINK_HERE" target="_blank" rel="noopener noreferrer">Register Now</a>
           </div>
         </div>
 
@@ -436,7 +358,7 @@
             </div>
             <div class="info-item">
               <span class="label">Daily Time</span>
-              <span class="value">Check-in: 9:00 AM &nbsp;|&nbsp; Check-out: 1:00 PM</span>
+              <span class="value">Check-in: 9:00 AM | Check-out: 1:00 PM</span>
             </div>
             <div class="info-item">
               <span class="label">Format</span>
@@ -450,69 +372,59 @@
               <span class="label">Location</span>
               <span class="value">Department of Computer Science and Engineering, UCA</span>
             </div>
+            <div class="info-item">
+              <span class="label">Registration Fee</span>
+              <span class="value">$150</span>
+            </div>
           </div>
         </aside>
       </div>
     </section>
 
     <section id="about">
-  <div class="container">
-    <h2 class="section-title">About the Camp</h2>
-
-    <div class="about-grid">
-      <div>
-        <p class="section-lead">
-          AI Innovators Lab is a short summer experience that introduces students to the foundations of coding and artificial intelligence in an engaging and age-appropriate environment. The camp combines guided instruction, interactive exercises, and project-based learning so students can explore how computers solve problems and how simple AI systems are built.
-        </p>
-
-        <div class="highlight">
-          <strong>Camp Purpose:</strong> To provide instruction in foundational programming and introductory artificial intelligence concepts for young learners through hands-on activities and guided project work, while encouraging curiosity, creativity, and early interest in computing.
-        </div>
-      </div>
-
-      <figure class="about-figure">
-        <img src="assets/AI innovators at UCA camp.png" alt="Students learning programming and AI in a summer camp environment" />
-        <figcaption>
-          Conceptual: Students explore coding, creativity, teamwork, and introductory AI concepts through hands-on activities.
-        </figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-    <!-- <section id="about">
       <div class="container">
         <h2 class="section-title">About the Camp</h2>
-        <p class="section-lead">
-          AI Innovators Lab is a short summer experience that introduces students to the foundations of coding and artificial intelligence in an engaging and age-appropriate environment. The camp combines guided instruction, interactive exercises, and project-based learning so students can explore how computers solve problems and how simple AI systems are built.
-        </p>
-        <div class="highlight">
-          <strong>Camp Purpose:</strong> To provide instruction in foundational programming and introductory artificial intelligence concepts for young learners through hands-on activities and guided project work, while encouraging curiosity, creativity, and early interest in computing.
+
+        <div class="about-grid">
+          <div>
+            <p class="section-lead">
+              AI Innovators Lab is a short summer experience that introduces students
+              to the foundations of coding and artificial intelligence in an engaging
+              and age-appropriate environment. The camp combines guided instruction,
+              interactive exercises, and project-based learning so students can explore
+              how computers solve problems and how simple AI systems are built.
+            </p>
+
+            <div class="highlight">
+              <strong>Camp Purpose:</strong> To provide instruction in foundational
+              programming and introductory artificial intelligence concepts for young
+              learners through hands-on activities and guided project work, while
+              encouraging curiosity, creativity, and early interest in computing.
+            </div>
+          </div>
+
+          <figure class="about-figure">
+            <img
+              src="assets/AI innovators at UCA camp.png"
+              alt="Students learning programming and AI in a summer camp environment"
+            />
+            <figcaption>
+              Students explore coding, creativity, teamwork, and introductory AI concepts through hands-on activities.
+            </figcaption>
+          </figure>
         </div>
       </div>
-      <div class="figure-box">
-  <div class="figure-flow">
-    <div class="step">Learn</div>
-    <div class="arrow">→</div>
-    <div class="step">Practice</div>
-    <div class="arrow">→</div>
-    <div class="step">Build</div>
-    <div class="arrow">→</div>
-    <div class="step">Showcase</div>
-  </div>
-  <p class="figure-caption">
-    Figure: Learning pathway of the AI Innovators Lab summer camp.
-  </p>
-</div>
-    </section> -->
+    </section>
 
-    <section id="highlights">
+    <section id="schedule">
       <div class="container">
-        <h2 class="section-title">Program Highlights</h2>
+        <h2 class="section-title">Daily Schedule</h2>
         <p class="section-lead">
-          The camp is structured to make technical topics approachable, fun, and meaningful for students with beginner-level experience.
+          The camp follows a four-day progression from coding foundations to guided
+          AI exploration and final student presentation.
         </p>
-        <div class="cards" style="grid-template-columns: repeat(2, 1fr);">
+
+        <div class="cards">
           <div class="card">
             <h3>Day 1 — July 6</h3>
             <p><strong>Theme:</strong> Introduction to Programming</p>
@@ -523,6 +435,7 @@
               <li>Interactive practice and group discussion</li>
             </ul>
           </div>
+
           <div class="card">
             <h3>Day 2 — July 7</h3>
             <p><strong>Theme:</strong> Data and Patterns</p>
@@ -533,6 +446,7 @@
               <li>Team-based activities and guided exploration</li>
             </ul>
           </div>
+
           <div class="card">
             <h3>Day 3 — July 8</h3>
             <p><strong>Theme:</strong> Beginner AI Project Work</p>
@@ -543,6 +457,7 @@
               <li>Preparation for final presentation</li>
             </ul>
           </div>
+
           <div class="card">
             <h3>Day 4 — July 9</h3>
             <p><strong>Theme:</strong> Project Showcase and Celebration</p>
@@ -563,44 +478,53 @@
         <div class="two-col">
           <div class="card">
             <h3>Who Should Attend?</h3>
-            <p>This camp is intended for students ages 7–12 who are curious about computers, coding, creativity, and how intelligent technologies work.</p>
+            <p>
+              This camp is intended for students ages 7–12 who are curious about
+              computers, coding, creativity, and how intelligent technologies work.
+            </p>
           </div>
+
           <div class="card">
             <h3>Camp Format</h3>
-            <p>This is a commuter camp. Students will check in each day at 9:00 AM and check out at 1:00 PM.</p>
+            <p>
+              This is a commuter camp. Students will check in each day at 9:00 AM
+              and check out at 1:00 PM.
+            </p>
           </div>
+
           <div class="card">
             <h3>Location</h3>
-            <p>Department of Computer Science and Engineering<br />University of Central Arkansas</p>
+            <p>
+              Department of Computer Science and Engineering<br />
+              University of Central Arkansas
+            </p>
           </div>
+
           <div class="card">
             <h3>Staffing</h3>
-            <p>The camp is expected to be supported by 3 volunteers/staff members.</p>
+            <p>
+              The camp is expected to be supported by 3 volunteers/staff members.
+            </p>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <section>
-      <div class="container">
-        <h2 class="section-title">What Students Gain</h2>
-        <div class="two-col">
           <div class="card">
-            <h3>Skills Developed</h3>
+            <h3>Registration</h3>
+            <p>
+              Registration fee: <strong>$150</strong><br />
+              Complete the registration form here:
+              <a href="YOUR_GOOGLE_FORM_LINK_HERE" target="_blank" rel="noopener noreferrer">
+                Google Form Registration
+              </a>
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>What Students Gain</h3>
             <ul>
               <li>Computational thinking</li>
               <li>Basic programming confidence</li>
               <li>Problem-solving and teamwork</li>
               <li>Early exposure to AI concepts</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Camp Experience</h3>
-            <ul>
-              <li>Hands-on coding activities</li>
-              <li>Structured and supportive learning</li>
-              <li>Project-based exploration</li>
-              <li>Final student showcase</li>
             </ul>
           </div>
         </div>
@@ -611,15 +535,19 @@
       <div class="container">
         <h2 class="section-title">Contact</h2>
         <div class="highlight">
-          <p style="margin-top:0;">
+          <p style="margin-top: 0;">
             For questions about the camp, schedule, or participation, please contact the camp organizer.
           </p>
-          <p style="margin-bottom:0;">
+          <p style="margin-bottom: 0;">
             <strong>Organizer:</strong> Md Jobair Hossain Faruk<br />
             <strong>Department:</strong> Computer Science and Engineering<br />
             <strong>University:</strong> University of Central Arkansas<br />
-            <strong>Email:</strong> <a href="mailto:mhossainfaruk@uca.edu">mhossainfaruk@uca.edu</a><br />
-            <strong>Website:</strong> <a href="http://jobair-hossain.github.io/AI-Innovators-Lab">jobair-hossain.github.io/AI-Innovators-Lab</a>
+            <strong>Email:</strong>
+            <a href="mailto:mhossainfaruk@uca.edu">mhossainfaruk@uca.edu</a><br />
+            <strong>Website:</strong>
+            <a href="http://jobair-hossain.github.io/AI-Innovators-Lab">
+              jobair-hossain.github.io/AI-Innovators-Lab
+            </a>
           </p>
         </div>
       </div>
@@ -629,7 +557,7 @@
   <footer>
     <div class="container footer-note">
       <div>© 2026 AI Innovators Lab, University of Central Arkansas</div>
-      <div>Learn to Code. Think with AI. Create the Future..</div>
+      <div>Learn to Code. Think with AI. Create the Future.</div>
     </div>
   </footer>
 </body>
