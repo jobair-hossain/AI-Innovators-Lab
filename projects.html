@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Innovators Lab | Student Projects</title>
+  <meta name="description" content="Student project repository for the AI Innovators Lab summer camp at UCA." />
+
+  <style>
+    :root {
+      --primary: #4f2d7f;
+      --primary-dark: #3c215f;
+      --accent: #f4f1f8;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius: 18px;
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: linear-gradient(to bottom, #faf9fc 0%, #ffffff 35%);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: min(92%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 0;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--primary-dark);
+      letter-spacing: 0.2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      padding: 4.5rem 0 2.5rem;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--primary-dark);
+      border: 1px solid #ddd2ef;
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.1;
+      margin: 0 0 1rem;
+      color: #1c1430;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin: 0 0 1.5rem;
+      max-width: 75ch;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 1.2rem;
+      border-radius: 12px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      background: white;
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: #fafafa;
+      text-decoration: none;
+    }
+
+    section {
+      padding: 1.3rem 0 2.4rem;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      margin-bottom: 0.7rem;
+      color: #1c1430;
+    }
+
+    .section-lead {
+      max-width: 78ch;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+
+    .highlight {
+      background: linear-gradient(135deg, #f8f5fc 0%, #ffffff 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.4rem;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .project-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.3rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-card h3 {
+      margin-top: 0;
+      margin-bottom: 0.45rem;
+      color: var(--primary-dark);
+      font-size: 1.15rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin: 0.7rem 0;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--primary-dark);
+      border: 1px solid #ddd2ef;
+      border-radius: 999px;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      margin-top: 0.4rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-meta {
+      font-size: 0.92rem;
+      margin: 0.7rem 0;
+    }
+
+    .project-meta strong {
+      color: var(--text);
+    }
+
+    .project-actions {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .small-link {
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 1rem;
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding: 2rem 0 2.8rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer-note {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        flex-direction: column;
+        gap: 0.7rem;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding-top: 3rem;
+      }
+
+      .nav-links {
+        gap: 0.8rem;
+        font-size: 0.92rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">AI Innovators Lab</div>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="index.html#details">Camp Details</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="https://securelb.imodules.com/s/1618/bp21/interior.aspx?sid=1618&gid=1&pgid=2561&cid=4945" target="_blank" rel="noopener noreferrer">Register</a>
+        <a href="projects.html">Projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="eyebrow">Student Project Repository</div>
+        <h1>AI Innovators Lab Projects</h1>
+        <p>
+          This page provides beginner-friendly artificial intelligence and machine learning projects for camp students.
+          Each project includes a problem statement, dataset link, and a Google Colab notebook link. Students may choose
+          one project, follow the guided notebook, customize examples, and prepare a short presentation for the showcase.
+        </p>
+
+        <div class="button-group">
+          <a class="btn btn-primary" href="#projects">View Project List</a>
+          <a class="btn btn-secondary" href="index.html">Back to Camp Website</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="highlight">
+          <strong>How students should use this page:</strong>
+          Choose one project with your team, open the Google Colab notebook, run the code step by step,
+          test your own example, and prepare a short explanation of what your AI model does.
+          The goal is simple: <strong>“I built an AI model.”</strong>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title">Available Projects</h2>
+        <p class="section-lead">
+          Projects are selected to be visual, engaging, and achievable within the short camp schedule.
+          Google Colab notebook links can be added after each notebook is uploaded.
+        </p>
+
+        <div class="project-grid">
+
+          <div class="project-card">
+            <div>
+              <h3>1. Cat vs Dog Classifier</h3>
+              <div class="badge-row">
+                <span class="badge">Image Classification</span>
+                <span class="badge">Beginner</span>
+                <span class="badge">CNN</span>
+              </div>
+              <p>Students upload an image, and the AI predicts whether it is a cat or a dog.</p>
+              <div class="project-meta">
+                <strong>Dataset:</strong> Kaggle Dogs vs Cats<br />
+                <strong>Dataset Link:</strong>
+                <a href="https://www.kaggle.com/c/dogs-vs-cats/data" target="_blank" rel="noopener noreferrer">Open Dataset</a>
+              </div>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-primary" href="PASTE_COLAB_LINK_HERE" target="_blank" rel="noopener noreferrer">Open in Colab</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div>
+              <h3>2. Handwritten Digit Recognition</h3>
+              <div class="badge-row">
+                <span class="badge">Image Classification</span>
+                <span class="badge">Beginner</span>
+                <span class="badge">MNIST</span>
+              </div>
+              <p>Students draw or test a handwritten number, and the AI predicts the digit from 0 to 9.</p>
+              <div class="project-meta">
+                <strong>Dataset:</strong> MNIST<br />
+                <strong>Dataset Link:</strong>
+                <a href="https://www.tensorflow.org/datasets/catalog/mnist" target="_blank" rel="noopener noreferrer">Open Dataset</a>
+              </div>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-primary" href="PASTE_COLAB_LINK_HERE" target="_blank" rel="noopener noreferrer">Open in Colab</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div>
+              <h3>3. Flower Classification</h3>
+              <div class="badge-row">
+                <span class="badge">Image Classification</span>
+                <span class="badge">Beginner</span>
+                <span class="badge">Visual AI</span>
+              </div>
+              <p>Students train an AI model to recognize flowers such as roses, daisies, and sunflowers.</p>
+              <div class="project-meta">
+                <strong>Dataset:</strong> Kaggle Flower Classification<br />
+                <strong>Dataset Link:</strong>
+                <a href="https://www.kaggle.com/datasets/marquis03/flower-classification" target="_blank" rel="noopener noreferrer">Open Dataset</a>
+              </div>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-primary" href="PASTE_COLAB_LINK_HERE" target="_blank" rel="noopener noreferrer">Open in Colab</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div>
+              <h3>4. Spam Detection</h3>
+              <div class="badge-row">
+                <span class="badge">Text Classification</span>
+                <span class="badge">Intermediate</span>
+                <span class="badge">NLP</span>
+              </div>
+              <p>Students type a text message, and the AI predicts whether it is spam or not spam.</p>
+              <div class="project-meta">
+                <strong>Dataset:</strong> UCI SMS Spam Collection<br />
+                <strong>Dataset Link:</strong>
+                <a href="https://archive.ics.uci.edu/dataset/228/sms+spam+collection" target="_blank" rel="noopener noreferrer">Open Dataset</a>
+              </div>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-primary" href="PASTE_COLAB_LINK_HERE" target="_blank" rel="noopener noreferrer">Open in Colab</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div>
+              <h3>5. Plant Disease Detection</h3>
+              <div class="badge-row">
+                <span class="badge">Image Classification</span>
+                <span class="badge">Intermediate</span>
+                <span class="badge">AI for Agriculture</span>
+              </div>
+              <p>Students upload a leaf image, and the AI predicts whether the plant appears healthy or diseased.</p>
+              <div class="project-meta">
+                <strong>Dataset:</strong> PlantVillage / Plant Disease Dataset<br />
+                <strong>Dataset Link:</strong>
+                <a href="https://www.kaggle.com/datasets/emmarex/plantdisease" target="_blank" rel="noopener noreferrer">Open Dataset</a>
+              </div>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-primary" href="PASTE_COLAB_LINK_HERE" target="_blank" rel="noopener noreferrer">Open in Colab</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div>
+              <h3>6. Student Performance Prediction</h3>
+              <div class="badge-row">
+                <span class="badge">Tabular Data</span>
+                <span class="badge">Intermediate</span>
+                <span class="badge">Decision Tree</span>
+              </div>
+              <p>Students use educational data to predict whether a fictional student may pass or need improvement.</p>
+              <div class="project-meta">
+                <strong>Dataset:</strong> UCI Student Performance Dataset<br />
+                <strong>Dataset Link:</strong>
+                <a href="https://archive.ics.uci.edu/dataset/320/student+performance" target="_blank" rel="noopener noreferrer">Open Dataset</a>
+              </div>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-primary" href="PASTE_COLAB_LINK_HERE" target="_blank" rel="noopener noreferrer">Open in Colab</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div>
+              <h3>7. Heart Disease Risk Prediction</h3>
+              <div class="badge-row">
+                <span class="badge">Tabular Data</span>
+                <span class="badge">Intermediate</span>
+                <span class="badge">Responsible AI</span>
+              </div>
+              <p>Students use fictional patient profiles to learn how AI can explore health-related datasets responsibly.</p>
+              <div class="project-meta">
+                <strong>Dataset:</strong> UCI Heart Disease Dataset<br />
+                <strong>Dataset Link:</strong>
+                <a href="https://archive.ics.uci.edu/dataset/45/heart+disease" target="_blank" rel="noopener noreferrer">Open Dataset</a>
+              </div>
+              <p class="note">Note: This project is for education only and is not medical advice.</p>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-primary" href="PASTE_COLAB_LINK_HERE" target="_blank" rel="noopener noreferrer">Open in Colab</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div>
+              <h3>8. Movie Recommendation System</h3>
+              <div class="badge-row">
+                <span class="badge">Recommendation</span>
+                <span class="badge">Intermediate</span>
+                <span class="badge">Similarity</span>
+              </div>
+              <p>Students enter a favorite movie, and the system recommends similar movies.</p>
+              <div class="project-meta">
+                <strong>Dataset:</strong> MovieLens Latest Small<br />
+                <strong>Dataset Link:</strong>
+                <a href="https://grouplens.org/datasets/movielens/latest/" target="_blank" rel="noopener noreferrer">Open Dataset</a>
+              </div>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-primary" href="PASTE_COLAB_LINK_HERE" target="_blank" rel="noopener noreferrer">Open in Colab</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div>
+              <h3>9. Fake News Detector</h3>
+              <div class="badge-row">
+                <span class="badge">Text Classification</span>
+                <span class="badge">Advanced</span>
+                <span class="badge">Responsible AI</span>
+              </div>
+              <p>Students type a news headline, and the AI predicts whether it may be fake or real.</p>
+              <div class="project-meta">
+                <strong>Dataset:</strong> Fake and Real News Dataset<br />
+                <strong>Dataset Link:</strong>
+                <a href="https://www.kaggle.com/datasets/clmentbisaillon/fake-and-real-news-dataset" target="_blank" rel="noopener noreferrer">Open Dataset</a>
+              </div>
+              <p class="note">Note: This project is for education only and is not a real fact-checking tool.</p>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-primary" href="PASTE_COLAB_LINK_HERE" target="_blank" rel="noopener noreferrer">Open in Colab</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div>
+              <h3>10. Rock–Paper–Scissors Classifier</h3>
+              <div class="badge-row">
+                <span class="badge">Image Classification</span>
+                <span class="badge">Intermediate</span>
+                <span class="badge">Gesture AI</span>
+              </div>
+              <p>Students upload a hand gesture image, and the AI predicts rock, paper, or scissors.</p>
+              <div class="project-meta">
+                <strong>Dataset:</strong> TensorFlow Rock Paper Scissors<br />
+                <strong>Dataset Link:</strong>
+                <a href="https://www.tensorflow.org/datasets/catalog/rock_paper_scissors" target="_blank" rel="noopener noreferrer">Open Dataset</a>
+              </div>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-primary" href="PASTE_COLAB_LINK_HERE" target="_blank" rel="noopener noreferrer">Open in Colab</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2 class="section-title">Project Presentation Guide</h2>
+        <div class="highlight">
+          <strong>Each team should explain:</strong>
+          <ul>
+            <li>What problem their AI project solves</li>
+            <li>What dataset they used</li>
+            <li>What the model predicts</li>
+            <li>What result or accuracy they achieved</li>
+            <li>One real-world use of the project</li>
+            <li>One limitation or responsible AI concern</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-note">
+      <div>© 2026 AI Innovators Lab, University of Central Arkansas</div>
+      <div>Learn to Code. Think with AI. Create the Future.</div>
+    </div>
+  </footer>
+</body>
+</html>
