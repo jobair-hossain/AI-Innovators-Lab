@@ -1,0 +1,406 @@
+# ============================================================
+# AI Innovators Lab: Cat vs Dog Image Classifier
+# Goal: Train an AI model that can recognize cats and dogs.
+#
+# Dataset:
+# Upload your reduced CatsVsDogs.zip file.
+#
+# Expected zip structure:
+# CatsVsDogs/
+#   PetImages/
+#     Cat/
+#     Dog/
+# ============================================================
+
+print("Welcome to the Cat vs Dog Classifier Project!")
+print("Goal: Build a simple AI model that can recognize cats and dogs.")
+
+# ============================================================
+# Step 1: Import required libraries
+# ============================================================
+
+import os
+import zipfile
+import shutil
+import random
+import numpy as np
+import matplotlib.pyplot as plt
+import tensorflow as tf
+
+from tensorflow.keras import layers, models
+from tensorflow.keras.preprocessing import image
+from google.colab import files
+
+print("Libraries loaded successfully!")
+
+# ============================================================
+# Step 2: Upload your CatsVsDogs.zip file
+#
+# IMPORTANT:
+# Upload CatsVsDogs.zip, NOT kaggle.json.
+# ============================================================
+
+uploaded = files.upload()
+
+zip_filename = list(uploaded.keys())[0]
+
+print("Uploaded file:", zip_filename)
+
+# ============================================================
+# Step 3: Extract the zip file
+# ============================================================
+
+extract_dir = "uploaded_dataset"
+
+if os.path.exists(extract_dir):
+    shutil.rmtree(extract_dir)
+
+os.makedirs(extract_dir, exist_ok=True)
+
+with zipfile.ZipFile(zip_filename, "r") as zip_ref:
+    zip_ref.extractall(extract_dir)
+
+print("Dataset extracted successfully!")
+
+# ============================================================
+# Step 4: Find Cat and Dog folders automatically
+# ============================================================
+
+cat_dir = None
+dog_dir = None
+
+for root, dirs, file_list in os.walk(extract_dir):
+    folder_name = os.path.basename(root).lower()
+
+    if folder_name == "cat":
+        cat_dir = root
+
+    if folder_name == "dog":
+        dog_dir = root
+
+print("Cat folder:", cat_dir)
+print("Dog folder:", dog_dir)
+
+if cat_dir is None or dog_dir is None:
+    raise ValueError("Could not find Cat and Dog folders. Please check your zip file structure.")
+
+# ============================================================
+# Step 5: Create clean train and validation folders
+#
+# We ignore Mac system files such as __MACOSX and .DS_Store.
+# ============================================================
+
+base_dir = "cat_dog_ready"
+
+if os.path.exists(base_dir):
+    shutil.rmtree(base_dir)
+
+for split in ["train", "validation"]:
+    for label in ["cat", "dog"]:
+        os.makedirs(os.path.join(base_dir, split, label), exist_ok=True)
+
+image_extensions = (".jpg", ".jpeg", ".png")
+
+cat_images = [
+    os.path.join(cat_dir, f)
+    for f in os.listdir(cat_dir)
+    if f.lower().endswith(image_extensions) and not f.startswith("._")
+]
+
+dog_images = [
+    os.path.join(dog_dir, f)
+    for f in os.listdir(dog_dir)
+    if f.lower().endswith(image_extensions) and not f.startswith("._")
+]
+
+random.shuffle(cat_images)
+random.shuffle(dog_images)
+
+print("Total cat images:", len(cat_images))
+print("Total dog images:", len(dog_images))
+
+# Use 80% for training and 20% for validation
+def split_images(image_list):
+    split_index = int(len(image_list) * 0.8)
+    return image_list[:split_index], image_list[split_index:]
+
+cat_train, cat_val = split_images(cat_images)
+dog_train, dog_val = split_images(dog_images)
+
+def copy_images(image_paths, destination_folder):
+    for i, img_path in enumerate(image_paths):
+        ext = os.path.splitext(img_path)[1]
+        new_name = f"image_{i}{ext}"
+        shutil.copy(img_path, os.path.join(destination_folder, new_name))
+
+copy_images(cat_train, os.path.join(base_dir, "train", "cat"))
+copy_images(cat_val, os.path.join(base_dir, "validation", "cat"))
+
+copy_images(dog_train, os.path.join(base_dir, "train", "dog"))
+copy_images(dog_val, os.path.join(base_dir, "validation", "dog"))
+
+train_dir = os.path.join(base_dir, "train")
+validation_dir = os.path.join(base_dir, "validation")
+
+print("Clean dataset prepared successfully!")
+
+print("Training cats:", len(os.listdir(os.path.join(train_dir, "cat"))))
+print("Training dogs:", len(os.listdir(os.path.join(train_dir, "dog"))))
+print("Validation cats:", len(os.listdir(os.path.join(validation_dir, "cat"))))
+print("Validation dogs:", len(os.listdir(os.path.join(validation_dir, "dog"))))
+
+# ============================================================
+# Step 6: Remove corrupted images, if any
+# ============================================================
+
+from PIL import Image
+
+def remove_bad_images(folder):
+    removed = 0
+
+    for root, dirs, files_list in os.walk(folder):
+        for file_name in files_list:
+            file_path = os.path.join(root, file_name)
+
+            try:
+                img = Image.open(file_path)
+                img.verify()
+            except Exception:
+                os.remove(file_path)
+                removed += 1
+
+    return removed
+
+removed_train = remove_bad_images(train_dir)
+removed_validation = remove_bad_images(validation_dir)
+
+print("Bad training images removed:", removed_train)
+print("Bad validation images removed:", removed_validation)
+
+# ============================================================
+# Step 7: Show sample images
+# ============================================================
+
+cat_sample_folder = os.path.join(train_dir, "cat")
+dog_sample_folder = os.path.join(train_dir, "dog")
+
+cat_samples = os.listdir(cat_sample_folder)[:4]
+dog_samples = os.listdir(dog_sample_folder)[:4]
+
+plt.figure(figsize=(10, 5))
+
+for i, img_name in enumerate(cat_samples):
+    img_path = os.path.join(cat_sample_folder, img_name)
+    img = plt.imread(img_path)
+
+    plt.subplot(2, 4, i + 1)
+    plt.imshow(img)
+    plt.title("Cat")
+    plt.axis("off")
+
+for i, img_name in enumerate(dog_samples):
+    img_path = os.path.join(dog_sample_folder, img_name)
+    img = plt.imread(img_path)
+
+    plt.subplot(2, 4, i + 5)
+    plt.imshow(img)
+    plt.title("Dog")
+    plt.axis("off")
+
+plt.tight_layout()
+plt.show()
+
+# ============================================================
+# Step 8: Load images for training
+# ============================================================
+
+IMG_SIZE = 150
+BATCH_SIZE = 32
+
+train_dataset = tf.keras.utils.image_dataset_from_directory(
+    train_dir,
+    image_size=(IMG_SIZE, IMG_SIZE),
+    batch_size=BATCH_SIZE,
+    label_mode="binary"
+)
+
+validation_dataset = tf.keras.utils.image_dataset_from_directory(
+    validation_dir,
+    image_size=(IMG_SIZE, IMG_SIZE),
+    batch_size=BATCH_SIZE,
+    label_mode="binary"
+)
+
+class_names = train_dataset.class_names
+
+print("Class names:", class_names)
+
+# Improve performance
+AUTOTUNE = tf.data.AUTOTUNE
+
+train_dataset = train_dataset.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
+validation_dataset = validation_dataset.cache().prefetch(buffer_size=AUTOTUNE)
+
+# ============================================================
+# Step 9: Build the AI model
+# ============================================================
+
+model = models.Sequential([
+    layers.Rescaling(1./255, input_shape=(IMG_SIZE, IMG_SIZE, 3)),
+
+    layers.Conv2D(32, (3, 3), activation="relu"),
+    layers.MaxPooling2D(2, 2),
+
+    layers.Conv2D(64, (3, 3), activation="relu"),
+    layers.MaxPooling2D(2, 2),
+
+    layers.Conv2D(128, (3, 3), activation="relu"),
+    layers.MaxPooling2D(2, 2),
+
+    layers.Flatten(),
+    layers.Dense(128, activation="relu"),
+    layers.Dropout(0.5),
+
+    layers.Dense(1, activation="sigmoid")
+])
+
+model.compile(
+    optimizer="adam",
+    loss="binary_crossentropy",
+    metrics=["accuracy"]
+)
+
+model.summary()
+
+# ============================================================
+# Step 10: Train the model
+# ============================================================
+
+history = model.fit(
+    train_dataset,
+    epochs=5,
+    validation_data=validation_dataset
+)
+
+print("Model training completed!")
+
+# ============================================================
+# Step 11: Plot accuracy and loss
+# ============================================================
+
+plt.figure(figsize=(8, 5))
+plt.plot(history.history["accuracy"], label="Training Accuracy")
+plt.plot(history.history["val_accuracy"], label="Validation Accuracy")
+plt.title("Model Accuracy")
+plt.xlabel("Epoch")
+plt.ylabel("Accuracy")
+plt.legend()
+plt.show()
+
+plt.figure(figsize=(8, 5))
+plt.plot(history.history["loss"], label="Training Loss")
+plt.plot(history.history["val_loss"], label="Validation Loss")
+plt.title("Model Loss")
+plt.xlabel("Epoch")
+plt.ylabel("Loss")
+plt.legend()
+plt.show()
+
+# ============================================================
+# Step 12: Upload your own cat or dog image
+# ============================================================
+
+uploaded_test = files.upload()
+
+for filename in uploaded_test.keys():
+    img_path = filename
+
+    img = image.load_img(img_path, target_size=(IMG_SIZE, IMG_SIZE))
+    img_array = image.img_to_array(img)
+    img_array = np.expand_dims(img_array, axis=0)
+
+    prediction = model.predict(img_array)[0][0]
+
+    plt.imshow(img)
+    plt.axis("off")
+
+    if prediction > 0.5:
+        predicted_label = "Dog"
+        confidence = prediction
+    else:
+        predicted_label = "Cat"
+        confidence = 1 - prediction
+
+    plt.title(f"Prediction: {predicted_label} | Confidence: {confidence:.2f}")
+    plt.show()
+
+    print("The AI thinks this is a:", predicted_label)
+    print("Confidence:", round(confidence * 100, 2), "%")
+
+# ============================================================
+# Step 13: Save the trained model
+# ============================================================
+
+model.save("cat_dog_classifier_model.h5")
+
+print("Model saved as cat_dog_classifier_model.h5")
+
+# ============================================================
+# Step 14: Reflection questions for final showcase
+# ============================================================
+
+reflection_questions = [
+    "1. What problem does your AI model solve?",
+    "2. What dataset did you use?",
+    "3. What are the two classes your model predicts?",
+    "4. How did the AI learn from cat and dog images?",
+    "5. What was your model accuracy?",
+    "6. Did the model make any mistakes?",
+    "7. Why might some images be hard to classify?",
+    "8. How could this type of AI be used in real life?"
+]
+
+print("\nReflection Questions:")
+for question in reflection_questions:
+    print(question)
+
+# ============================================================
+# Presentation Template for Students
+# ============================================================
+
+presentation_template = """
+Project Title:
+Cat vs Dog Image Classifier
+
+Team Members:
+[Names]
+
+Problem:
+We wanted to build an AI model that can tell whether an image is a cat or a dog.
+
+Dataset:
+We used a reduced CatsVsDogs image dataset.
+
+Input:
+Image of a cat or dog
+
+Prediction:
+Cat or Dog
+
+Model Used:
+Convolutional Neural Network (CNN)
+
+Result:
+Our model reached approximately ____% validation accuracy.
+
+Demo:
+We uploaded a new image and the model predicted whether it was a cat or dog.
+
+What We Learned:
+We learned how AI can classify images using training data.
+
+Future Improvement:
+We could train with more images, use better image quality, or improve the model.
+"""
+
+print(presentation_template)
